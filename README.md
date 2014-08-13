@@ -148,4 +148,5 @@ Feel free to put up a Pull Request.
 ## About
 
 My first go library inspired by [jcabi http](http://http.jcabi.com/index.html)
+
 [coverage](https://dl.dropboxusercontent.com/u/17033881/coverage.html)
