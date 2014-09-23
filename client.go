@@ -20,6 +20,19 @@ type Client struct {
 	request    *http.Request
 }
 
+type ClientBuilder struct {
+	Method   string
+	Url      string
+	Redirect bool
+	Body     []interface{}
+}
+
+func (c ClientBuilder) Build() *Client {
+	cl := getRequestWithBody(c.Method, c.Url, c.Body)
+	cl.redirect = c.Redirect
+	return cl
+}
+
 //creates a http client using GET
 func Get(url string) *Client {
 	c := &Client{}
@@ -73,8 +86,6 @@ func getRequestWithBody(method, purl string, params []interface{}) *Client {
 			c := &Client{}
 			c.request, c.Error = http.NewRequest(method, purl, strings.NewReader(params[0].(url.Values).Encode()))
 			return c
-		case []interface{}:
-
 		default:
 			c := &Client{}
 			c.Error = errors.New(fmt.Sprintf("parameters not correct %T", params[0]))
