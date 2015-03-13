@@ -206,11 +206,10 @@ func Test_Headers(t *testing.T) {
 	}
 
 	headers := map[string]string{
-		"Referer":    "httpcl",
-		"User-Agent": "httpcl",
+		"Referer": "httpcl",
 	}
 
-	err := cl.AddHeader("Connection", "close").Error
+	err := cl.AddHeader("User-Agent", "httpcl").Error
 	if err != nil {
 		t.Error(err.Error())
 	}
@@ -235,9 +234,6 @@ func Test_Headers(t *testing.T) {
 	m := respjson.(map[string]interface{})
 	headersact := m["headers"].(map[string]interface{})
 
-	if headersact["Connection"] != "close" {
-		t.Errorf("Connection should be \"close\" is \"%v\"", headersact["Connection"])
-	}
 	if headersact["Referer"] != "httpcl" {
 		t.Errorf("Referer should be \"httpcl\" is \"%v\"", headersact["Referer"])
 	}
