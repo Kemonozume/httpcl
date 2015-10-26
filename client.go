@@ -287,13 +287,13 @@ func (c *Client) Do() (*http.Response, error) {
 }
 
 //starts the request and transforms the response with the given function
-func (c *Client) DoTransform(trans func(resp *http.Response, c interface{}) error, b interface{}) (err error) {
-	resp, err := c.Do()
+func (c *Client) DoTransform(trans func(resp *http.Response, c interface{}) error, b interface{}) (resp *http.Response, err error) {
+	resp, err = c.Do()
 	if err != nil {
-		return
+		return nil, err
 	}
 
-	return trans(resp, b)
+	return resp, trans(resp, b)
 }
 
 //simple json transform
